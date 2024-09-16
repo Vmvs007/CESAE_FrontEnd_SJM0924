@@ -60,7 +60,7 @@ public class Ex_08 {
 
         // Calcular as horas, minutos e segundos
         horas = segundosTotaisAlbum / 3600;
-        minutos = (segundosTotaisAlbum / 60) - (horas * 60); 
+        minutos = (segundosTotaisAlbum / 60) - (horas * 60);
         segundos = segundosTotaisAlbum - (horas * 3600) - (minutos * 60);
 
 
