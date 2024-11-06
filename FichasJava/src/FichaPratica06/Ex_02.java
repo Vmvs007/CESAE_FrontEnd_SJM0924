@@ -23,6 +23,7 @@ public class Ex_02 {
 
     /**
      * Função que imprime n asteriscos
+     *
      * @param quantidade Asteriscos a serem impressos
      */
     public static void imprimirAsteriscos(int quantidade) {
@@ -31,12 +32,23 @@ public class Ex_02 {
         }
     }
 
+    public static void imprimirCaracter(int quantidade, String caracter) {
+        for (int i = 0; i < quantidade; i++) {
+            System.out.print(caracter);
+        }
+    }
+
 
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
 
-        int numero = lerInteiroPositivo();
+        //imprimirAsteriscos(lerInteiroPositivo());
 
-        imprimirAsteriscos(numero);
+        System.out.print("Insira um caracter: ");
+        String caract = input.next();
+
+        imprimirCaracter(lerInteiroPositivo(), caract);
+
 
     }
 
