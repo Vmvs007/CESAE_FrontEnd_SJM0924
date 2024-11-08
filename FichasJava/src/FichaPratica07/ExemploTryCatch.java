@@ -25,7 +25,7 @@ public class ExemploTryCatch {
               System.out.println("Index inválido!");
           } catch (InputMismatchException exc){
               System.out.println("Tem de ser um número inteiro entre 0 e 4");
-              input.nextLine();
+              input.nextLine(); // Limpeza de buffer
           }
 
       }
