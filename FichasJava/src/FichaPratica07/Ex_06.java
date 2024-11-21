@@ -27,4 +27,7 @@ public class Ex_06 {
         System.out.println(nomePessoaMaisVelha + " com " + idadePessoaMaisVelha + " anos.");
 
     }
+
+
+
 }
