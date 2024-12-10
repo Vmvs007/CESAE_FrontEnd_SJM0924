@@ -1,4 +1,7 @@
-package WingsApp;
+package WingsApp.Avioes;
+
+import WingsApp.Enums.CategoriaJato;
+import WingsApp.Enums.Instalacao;
 
 import java.util.ArrayList;
 
@@ -46,8 +49,19 @@ public class JatoParticular extends Aviao {
     }
 
     public void exibirInstalacoes() {
-        System.out.println("********** Instalações **********");
-        System.out.println(this.listaInstalacoes);
+        System.out.println("Instalações: " + this.listaInstalacoes);
     }
 
+    @Override
+    public void exibirDetalhes() {
+        super.exibirDetalhes();
+        System.out.println("Lotação: " + this.lotacao + " | Capacidade Bagagem: " + this.capacidadeBagagem + " cm3 | Categoria: " + this.categoria);
+        this.exibirInstalacoes();
+    }
+
+    public void exibirDetalhesJato() {
+        super.exibirDetalhes();
+        System.out.println("Lotação: " + this.lotacao + " | Capacidade Bagagem: " + this.capacidadeBagagem + " cm3 | Categoria: " + this.categoria);
+        this.exibirInstalacoes();
+    }
 }

@@ -1,4 +1,6 @@
-package WingsApp;
+package WingsApp.Avioes;
+
+import WingsApp.Enums.Arma;
 
 import java.util.ArrayList;
 
@@ -41,8 +43,20 @@ public class AviaoCombate extends Aviao {
         }
     }
 
-    public void exibirArsenal(){
-        System.out.println("********** Arsenal **********");
-        System.out.println(this.arsenal);
+    public void exibirArsenal() {
+        System.out.println("Arsenal: "+this.arsenal);
+    }
+
+    @Override
+    public void exibirDetalhes() {
+        super.exibirDetalhes();
+        System.out.println("País Origem: " + this.paisOrigem + " | Camuflagem: " + this.camuflagem);
+        this.exibirArsenal();
+    }
+
+    public void exibirDetalhesAviaoCombate() {
+        super.exibirDetalhes();
+        System.out.println("País Origem: " + this.paisOrigem + " | Camuflagem: " + this.camuflagem);
+        this.exibirArsenal();
     }
 }
