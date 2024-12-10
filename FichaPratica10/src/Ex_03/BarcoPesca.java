@@ -8,40 +8,107 @@ public class BarcoPesca {
     private int anoFabrico;
     private int tripulacao;
     private double capacidadeCarga;
-    private Marca marcaBarco;
-    private ArrayList<Peixe> peixePescado;
+    private MarcaBarco marca;
+    private ArrayList<Peixe> peixesPescados;
     private ArrayList<Marisco> mariscoPescado;
 
     /**
-     * Método construtor para <b>Barco</b>
+     * Método construtor de <b>Barco</b>
      *
-     * @param nome            Nome do <b>Barco</b>
+     * @param nome            Nome Artistico do <b>Barco</b>
      * @param cor             Cor do <b>Barco</b>
      * @param anoFabrico      Ano de Fabrico
-     * @param tripulacao      Quantidade de Tripulação (exclui Capitão)
-     * @param capacidadeCarga Capacidade da Carga em Kg.
-     * @param marcaBarco      Marca do <b>Barco</b>
+     * @param tripulacao      Número de Tripulantes
+     * @param capacidadeCarga Capacidade da Carga (Kg.)
+     * @param marca           Marca do <b>Barco</b>
      */
-    public BarcoPesca(String nome, String cor, int anoFabrico, int tripulacao, double capacidadeCarga, Marca marcaBarco) {
+    public BarcoPesca(String nome, String cor, int anoFabrico, int tripulacao, double capacidadeCarga, MarcaBarco marca) {
         this.nome = nome;
         this.cor = cor;
         this.anoFabrico = anoFabrico;
         this.tripulacao = tripulacao;
         this.capacidadeCarga = capacidadeCarga;
-        this.marcaBarco = marcaBarco;
-        this.peixePescado = new ArrayList<Peixe>();
+        this.marca = marca;
+        this.peixesPescados = new ArrayList<Peixe>();
         this.mariscoPescado = new ArrayList<Marisco>();
     }
 
     /**
-     * Método que calcular a carga atual do Barco
+     * Método para pescar novos peixes
      *
-     * @return Carga Atual em Kg.
+     * @param peixeNovo Peixe a ser adicionado ao porão de carga
+     */
+    public void pescarPeixe(Peixe peixeNovo) {
+        if (this.capacidadeCarga >= calcularCargaAtual() + peixeNovo.getPeso()) {
+            this.peixesPescados.add(peixeNovo);
+            System.out.println(peixeNovo.getEspecie() + " carregado com sucesso.");
+        } else {
+            System.out.println(calcularCargaAtual() + peixeNovo.getPeso() + " ultrapassa a capacidade do " + this.nome + " de " + this.capacidadeCarga + " Kg.");
+        }
+    }
+
+    /**
+     * Método para pescar novo marisco
+     *
+     * @param mariscoNovo Marisco a ser adicionado ao porão de carga
+     */
+    public void pescarMarisco(Marisco mariscoNovo) {
+        if (this.capacidadeCarga >= calcularCargaAtual() + mariscoNovo.getPeso()) {
+            this.mariscoPescado.add(mariscoNovo);
+            System.out.println(mariscoNovo.getEspecie() + " carregado com sucesso.");
+        } else {
+            System.out.println(calcularCargaAtual() + mariscoNovo.getPeso() + " ultrapassa a capacidade do " + this.nome + " de " + this.capacidadeCarga + " Kg.");
+        }
+    }
+
+    /**
+     * Método para largar peixe - pelo index
+     *
+     * @param indexPeixeRemovido Index do Peixe a Remover
+     */
+    public void largarPeixe(int indexPeixeRemovido) {
+        System.out.println(this.peixesPescados.get(indexPeixeRemovido).getEspecie() + " largado ao mar com sucesso.");
+        this.peixesPescados.remove(indexPeixeRemovido);
+    }
+
+    /**
+     * Método para largar peixe - pelo objeto
+     *
+     * @param peixeRemovido Peixe a Remover
+     */
+    public void largarPeixe(Peixe peixeRemovido) {
+
+        System.out.println(peixeRemovido.getEspecie() + " largado ao mar com sucesso");
+        this.peixesPescados.remove(peixeRemovido);
+    }
+
+    /**
+     * Método para largar marisco - pelo index
+     *
+     * @param indexMariscoRemovido Index do Marisco a Remover
+     */
+    public void largarMarisco(int indexMariscoRemovido) {
+        this.mariscoPescado.remove(indexMariscoRemovido);
+    }
+
+    /**
+     * Método para largar marisco - pelo objeto
+     *
+     * @param mariscoRemovido Marisco a Remover
+     */
+    public void largarMarisco(Marisco mariscoRemovido) {
+        this.mariscoPescado.remove(mariscoRemovido);
+    }
+
+    /**
+     * Método que retorna a carga atual de Peixe e Marisco
+     *
+     * @return Carga Atual (Kg.)
      */
     public double calcularCargaAtual() {
         double cargaAtual = 0;
 
-        for (Peixe peixeAtual : this.peixePescado) {
+        for (Peixe peixeAtual : this.peixesPescados) {
             cargaAtual += peixeAtual.getPeso();
         }
 
@@ -53,82 +120,50 @@ public class BarcoPesca {
     }
 
     /**
-     * Método para adicionar mais peixe, se couber
+     * Método que calcula o preço total da carga atual
      *
-     * @param peixeNovo Peixe a ser adicionado
+     * @return Preço da Carga (€)
      */
-    public void addPeixe(Peixe peixeNovo) {
-        if (this.calcularCargaAtual() + peixeNovo.getPeso() <= this.capacidadeCarga) {
-            // Pode ser pescado
-            this.peixePescado.add(peixeNovo);
-        }
-    }
+    public double calcularPrecoCarga() {
+        double precoTotal = 0;
 
-    /**
-     * Método para adicionar mais marisco, se couber
-     *
-     * @param mariscoNovo Marisco a ser adicionado
-     */
-    public void addMarisco(Marisco mariscoNovo) {
-        if (this.calcularCargaAtual() + mariscoNovo.getPeso() <= this.capacidadeCarga) {
-            // Pode ser pescado
-            this.mariscoPescado.add(mariscoNovo);
-        }
-    }
-
-    /**
-     * Método para largar peixe (remover do array)
-     * @param indexRemovido
-     */
-    public void largarPeixe(int indexRemovido) {
-        this.peixePescado.remove(indexRemovido);
-    }
-
-    /**
-     * Método para largar marisco (remover do array)
-     * @param indexRemovido
-     */
-    public void largarMarisco(int indexRemovido) {
-        this.mariscoPescado.remove(indexRemovido);
-    }
-
-    /**
-     * Método que calcula o valor total da carga em €
-     * @return Valor Total da Carga em €
-     */
-    public double valorTotal() {
-        double valorTotal = 0;
-
-        for (Peixe peixeAtual : this.peixePescado) {
-            valorTotal += peixeAtual.getPeso() * peixeAtual.getPrecoKg();
+        for (Peixe peixeAtual : this.peixesPescados) {
+            precoTotal += peixeAtual.getPeso() * peixeAtual.getPrecoKg();
         }
 
         for (Marisco mariscoAtual : this.mariscoPescado) {
-            valorTotal += mariscoAtual.getPeso() * mariscoAtual.getPrecoKg();
+            precoTotal += mariscoAtual.getPeso() * mariscoAtual.getPrecoKg();
         }
 
-        return valorTotal;
+        return precoTotal;
     }
 
     /**
-     * Método para exibir os detalhes do Barco de Pesca
+     * Método para calcular o salário de um tripulante
+     *
+     * @return Salário Individual (€)
      */
-    public void exibirDetalhes() {
-        System.out.println("***** " + this.nome + " *****");
-        System.out.println("Capacidade Carga: " + this.capacidadeCarga + " Kg.");
-        System.out.println("Carga Atual: " + this.calcularCargaAtual() + " Kg.");
+    public double salarioTripulacao() {
+        return (this.calcularPrecoCarga() * 0.6) / this.tripulacao;
+    }
 
-        System.out.println("\nPeixe Pescado:");
-        for (Peixe peixeAtual : this.peixePescado) {
+    public void exibirDetalhes() {
+        System.out.println("******* *** " + this.nome + " ******* ***");
+        System.out.println(this.cor + " | Ano Fabrico: " + this.anoFabrico + " | " + this.capacidadeCarga + " Kg. | Tripulação:" + this.tripulacao + " | " + this.marca);
+
+        System.out.println("\n__________ Carga __________");
+
+        for (Peixe peixeAtual : this.peixesPescados) {
             peixeAtual.exibirDetalhes();
         }
 
-        System.out.println("\nMarisco Pescado:");
         for (Marisco mariscoAtual : this.mariscoPescado) {
             mariscoAtual.exibirDetalhes();
         }
 
-        System.out.println("Valor Total da Carga: "+this.valorTotal()+" €");
+        System.out.println("\nTotal de Carga: " + this.calcularCargaAtual() + " Kg.");
+        System.out.println("Salário Atual da Tripulação: " + this.salarioTripulacao() + " €");
+
     }
 
 }

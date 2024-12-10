@@ -6,11 +6,10 @@ public class Peixe {
     private double precoKg;
 
     /**
-     * Método construtor para <b>Peixe</b>
-     *
-     * @param especie Espécido do <b>Peixe</b>
-     * @param peso    Peso em Kg.
-     * @param precoKg Preço por Kg. em €
+     * Método construtor de <b>Peixe</b>
+     * @param especie Espécie de <b>Peixe</b>
+     * @param peso Peso (Kg.)
+     * @param precoKg Preço/Kg. (€)
      */
     public Peixe(String especie, double peso, double precoKg) {
         this.especie = especie;
@@ -31,9 +30,9 @@ public class Peixe {
     }
 
     /**
-     * Método para imprimir na consola as especificações do Peixe
+     * Método para exibir detalhes de um <b>Peixe</b>
      */
-    public void exibirDetalhes() {
-        System.out.println("\uD83D\uDC1F Espécie: " + this.especie + " | Peso: " + this.peso + " Kg. | Preço por Kg.: " + this.precoKg + " €");
+    public void exibirDetalhes(){
+        System.out.println(this.especie+" | "+this.peso+" Kg. | "+this.precoKg+" €/Kg.");
     }
 }
